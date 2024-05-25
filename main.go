@@ -9,14 +9,21 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
+
+	"github.com/TakumaKurosawa/accept-interfaces-returns-structs/handler"
+	"github.com/TakumaKurosawa/accept-interfaces-returns-structs/pkg/uid"
+	"github.com/TakumaKurosawa/accept-interfaces-returns-structs/usecase"
 )
 
 func main() {
-	e := echo.New()
+	todoUseCase := usecase.NewTodoUseCase(uid.NewGenerator())
+	todoHandler := handler.NewHandler(todoUseCase)
 
+	e := echo.New()
 	e.GET("/healthz", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
+	e.POST("/todos", todoHandler.CreateTodo)
 
 	go func() {
 		if err := e.Start(":8080"); err != nil {
