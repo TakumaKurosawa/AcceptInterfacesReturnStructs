@@ -5,15 +5,11 @@ import (
 	"github.com/TakumaKurosawa/accept-interfaces-returns-structs/pkg/uid"
 )
 
-type TodoUseCase interface {
-	CreateTodo(todo *model.Todo) (*model.Todo, error)
-}
-
 type todoUseCase struct {
 	ug uid.Generator
 }
 
-func NewTodoUseCase(ug uid.Generator) TodoUseCase {
+func NewTodoUseCase(ug uid.Generator) *todoUseCase {
 	return &todoUseCase{
 		ug: ug,
 	}

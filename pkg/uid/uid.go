@@ -10,7 +10,7 @@ type Generator interface {
 
 type generator struct{}
 
-func NewGenerator() Generator {
+func NewGenerator() *generator {
 	return &generator{}
 }
 

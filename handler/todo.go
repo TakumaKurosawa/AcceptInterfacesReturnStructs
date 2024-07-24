@@ -6,14 +6,17 @@ import (
 	"github.com/labstack/echo/v4"
 
 	"github.com/TakumaKurosawa/accept-interfaces-returns-structs/model"
-	"github.com/TakumaKurosawa/accept-interfaces-returns-structs/usecase"
 )
 
-type Handler struct {
-	tu usecase.TodoUseCase
+type TodoUseCase interface {
+	CreateTodo(todo *model.Todo) (*model.Todo, error)
 }
 
-func NewHandler(tu usecase.TodoUseCase) *Handler {
+type Handler struct {
+	tu TodoUseCase
+}
+
+func NewHandler(tu TodoUseCase) *Handler {
 	return &Handler{
 		tu: tu,
 	}
